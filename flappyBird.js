@@ -18,14 +18,43 @@ pipeSouth.src = "images/pipeSouth.png";
 let gap = 85;
 let constant = pipeNorth.height + gap;
 
+let bX = 10;
+let bY = 150;
+
+let gravity = 1;
+
+//on key down
+document.addEventListener("keydown", moveUp);
+
+function moveUp() {
+  bY -= 20;
+}
+
+//pipe cordinates
+let pipe = [];
+
+pipe[0] = {
+  x: cvs.width,
+  y: 0,
+};
+
 //draw images
 function draw() {
   ctx.drawImage(bg, 0, 0);
-  ctx.drawImage(pipeNorth, 100, 0);
-  ctx.drawImage(pipeSouth, 100, 0 + constant);
+
+  for (let i = 0; i < pipe.length; i++) {
+    ctx.drawImage(pipeNorth, pipe[i].x, pipe[i].y);
+    ctx.drawImage(pipeSouth, pipe[i].x, pipe[i].y + constant);
+
+    pipe[i].x--;
+  }
 
   ctx.drawImage(fg, 0, cvs.height - fg.height);
-  ctx.drawImage(bird, 10, 150);
+  ctx.drawImage(bird, bX, bY);
+
+  bY += gravity;
+
+  requestAnimationFrame(draw);
 }
 alert("loading images");
 draw();
