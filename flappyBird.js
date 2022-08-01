@@ -21,13 +21,13 @@ let constant = pipeNorth.height + gap;
 let bX = 10;
 let bY = 150;
 
-let gravity = 1;
+let gravity = 1.5;
 
 //on key down
 document.addEventListener("keydown", moveUp);
 
 function moveUp() {
-  bY -= 20;
+  bY -= 25;
 }
 
 //pipe cordinates
@@ -47,6 +47,13 @@ function draw() {
     ctx.drawImage(pipeSouth, pipe[i].x, pipe[i].y + constant);
 
     pipe[i].x--;
+
+    if (pipe[i].x == 125) {
+      pipe.push({
+        x: cvs.width,
+        y: Math.floor(Math.random() * pipeNorth.height) - pipeNorth.height,
+      });
+    }
   }
 
   ctx.drawImage(fg, 0, cvs.height - fg.height);
