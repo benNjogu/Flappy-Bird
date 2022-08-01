@@ -24,11 +24,19 @@ let bY = 150;
 let gravity = 1.5;
 let score = 0;
 
+//audio files
+const fly = new Audio();
+const scoreSound = new Audio();
+
+fly.src = "sounds/fly.mp3";
+scoreSound.src = "sounds/score.mp3";
+
 //on key down
 document.addEventListener("keydown", moveUp);
 
 function moveUp() {
   bY -= 25;
+  fly.play();
 }
 
 //pipe cordinates
@@ -69,6 +77,7 @@ function draw() {
 
     if (pipe[i].x == 5) {
       score++;
+      scoreSound.play();
     }
   }
 
@@ -82,5 +91,5 @@ function draw() {
 
   requestAnimationFrame(draw);
 }
-alert("loading images");
+
 draw();
